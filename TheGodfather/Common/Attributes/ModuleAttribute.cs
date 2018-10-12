@@ -18,6 +18,7 @@ namespace TheGodfather.Common.Attributes
         Owner,
         Polls,
         Reactions,
+        R6Siege, // Added by Dakota Methvin for use in TheGodfather.Modules.R6Siege
         Searches,
         SWAT,
         Uncategorized
