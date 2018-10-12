@@ -1,0 +1,7 @@
+Does it run
+can the !bd add @someone date work with more than one configuration or at least the one in the documentation
+run tests around this Unit and then also test the integration maybe with a black box ui test
+make sure that the Direct message channel can be created
+make sure that music services work 
+get music services to actually connect to the channel
+Other testing dependant on what all needs to be wrapped in order to unit test different sections
