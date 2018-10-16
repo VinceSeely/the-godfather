@@ -1,7 +1,9 @@
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
+using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
 using DSharpPlus.VoiceNext;
@@ -11,6 +13,9 @@ namespace TheGodfather.DiscordEntities
     public interface IDiscordClient
     {
         DebugLogger DebugLogger { get; }
+        IReadOnlyDictionary<ulong, DiscordGuild> Guilds { get; }
+        DiscordClient Client { get; }
+        
         event AsyncEventHandler<ClientErrorEventArgs> ClientErrored;
         event AsyncEventHandler<SocketErrorEventArgs> SocketErrored;
         event AsyncEventHandler SocketOpened;
@@ -69,6 +74,8 @@ namespace TheGodfather.DiscordEntities
     {
         private readonly DiscordClient _Client;
         public DebugLogger DebugLogger => _Client.DebugLogger;
+        public IReadOnlyDictionary<ulong, DiscordGuild> Guilds => _Client.Guilds;
+        public DiscordClient Client => _Client; 
 
         public event AsyncEventHandler<ClientErrorEventArgs> ClientErrored;
         public event AsyncEventHandler<SocketErrorEventArgs> SocketErrored;

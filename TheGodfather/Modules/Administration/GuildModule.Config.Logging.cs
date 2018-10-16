@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common;
 using TheGodfather.Common.Attributes;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Administration.Common;
@@ -55,7 +56,7 @@ namespace TheGodfather.Modules.Administration
 
                     await this.Database.UpdateGuildSettingsAsync(ctx.Guild.Id, gcfg);
 
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null) {
                         var emb = new DiscordEmbedBuilder() {
                             Title = "Guild config changed",

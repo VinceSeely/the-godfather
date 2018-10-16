@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common;
 using TheGodfather.Common.Attributes;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Modules.Administration.Common;
 using TheGodfather.Modules.Administration.Extensions;
@@ -66,7 +67,7 @@ namespace TheGodfather.Modules.Administration
 
                     await this.Database.SetAntifloodSettingsAsync(ctx.Guild.Id, settings);
 
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null) {
                         var emb = new DiscordEmbedBuilder() {
                             Title = "Guild config changed",
@@ -144,7 +145,7 @@ namespace TheGodfather.Modules.Administration
                     settings.Action = action;
                     await this.Database.SetAntifloodSettingsAsync(ctx.Guild.Id, settings);
 
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null) {
                         var emb = new DiscordEmbedBuilder() {
                             Title = "Guild config changed",
@@ -176,7 +177,7 @@ namespace TheGodfather.Modules.Administration
                     settings.Sensitivity = sensitivity;
                     await this.Database.SetAntifloodSettingsAsync(ctx.Guild.Id, settings);
 
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null) {
                         var emb = new DiscordEmbedBuilder() {
                             Title = "Guild config changed",
@@ -208,7 +209,7 @@ namespace TheGodfather.Modules.Administration
                     settings.Cooldown = (short)cooldown.TotalSeconds;
                     await this.Database.SetAntifloodSettingsAsync(ctx.Guild.Id, settings);
 
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null) {
                         var emb = new DiscordEmbedBuilder() {
                             Title = "Guild config changed",
