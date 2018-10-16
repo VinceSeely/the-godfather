@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 
 using TheGodfather.Common.Attributes;
+using TheGodfather.DiscordEntities;
+
 #endregion
 
 namespace TheGodfather.Common
@@ -14,7 +16,7 @@ namespace TheGodfather.Common
     {
         public static IEnumerable<ListenerMethod> ListenerMethods { get; private set; }
 
-        public static void RegisterEventListeners(DiscordClient client, TheGodfatherShard shard)
+        public static void RegisterEventListeners(IDiscordClient client, TheGodfatherShard shard)
         {
             ListenerMethods =
                 from types in Assembly.GetExecutingAssembly().GetTypes()

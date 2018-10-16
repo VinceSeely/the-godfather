@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TheGodfather.Common.Collections;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Services;
@@ -23,13 +24,13 @@ namespace TheGodfather.Common
         public int Id { get; private set; }
         public SavedTaskInfo TaskInfo { get; }
 
-        private readonly DiscordClient client;
+        private readonly IDiscordClient client;
         private readonly SharedData shared;
         private readonly DBService db;
         private Timer timer;
 
         
-        public static async Task ScheduleAsync(SharedData shared, DBService db, DiscordClient client, SavedTaskInfo task)
+        public static async Task ScheduleAsync(SharedData shared, DBService db, IDiscordClient client, SavedTaskInfo task)
         {
             SavedTaskExecutor texec = null;
             try {
@@ -52,7 +53,7 @@ namespace TheGodfather.Common
         }
 
 
-        public SavedTaskExecutor(int id, DiscordClient client, SavedTaskInfo task, SharedData data, DBService db)
+        public SavedTaskExecutor(int id, IDiscordClient client, SavedTaskInfo task, SharedData data, DBService db)
         {
             this.Id = id;
             this.client = client;

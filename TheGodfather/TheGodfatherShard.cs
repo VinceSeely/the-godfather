@@ -5,6 +5,7 @@ using DSharpPlus.Entities;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Net.WebSocket;
 using DSharpPlus.VoiceNext;
+using TheGodfather.DiscordEntities;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,7 +42,7 @@ namespace TheGodfather
 
 
         public int Id { get; }
-        public DiscordClient Client { get; private set; }
+        public IDiscordClient Client { get; private set; }
         public CommandsNextExtension CNext { get; private set; }
         public InteractivityExtension Interactivity { get; private set; }
         public VoiceNextExtension Voice { get; private set; }
@@ -99,7 +100,7 @@ namespace TheGodfather
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Environment.OSVersion.Version <= new Version(6, 1, 7601, 65536))
                 cfg.WebSocketClientFactory = WebSocket4NetCoreClient.CreateNew;
 
-            this.Client = new DiscordClient(cfg);
+            this.Client = new DiscordClientImpl(cfg);
 
             this.Client.DebugLogger.LogMessageReceived += (s, e) => {
                 this.SharedData.LogProvider.LogMessage(this.Id, e);

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common;
 using TheGodfather.Common.Collections;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Administration.Common;
 using TheGodfather.Modules.Misc.Extensions;
@@ -135,7 +136,7 @@ namespace TheGodfather
                 return this.BotConfiguration.DefaultPrefix;
         }
 
-        public DiscordChannel GetLogChannelForGuild(DiscordClient client, DiscordGuild guild)
+        public DiscordChannel GetLogChannelForGuild(IDiscordClient client, DiscordGuild guild)
         {
             var gcfg = this.GetGuildConfig(guild.Id);
             return gcfg.LoggingEnabled ? guild.GetChannel(gcfg.LogChannelId) : null;
