@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common.Attributes;
 using TheGodfather.Common.Collections;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Reactions.Common;
@@ -105,7 +106,7 @@ namespace TheGodfather.Modules.Reactions
             int count = this.Shared.TextReactions[ctx.Guild.Id].RemoveWhere(tr => ids.Contains(tr.Id));
 
             if (count > 0) {
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Several text reactions have been deleted",
@@ -172,7 +173,7 @@ namespace TheGodfather.Modules.Reactions
             int count = this.Shared.TextReactions[ctx.Guild.Id].RemoveWhere(tr => tr.RegexCount == 0);
 
             if (count > 0) {
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Several text reactions have been deleted",
@@ -213,7 +214,7 @@ namespace TheGodfather.Modules.Reactions
 
             await this.Database.RemoveAllGuildTextReactionsAsync(ctx.Guild.Id);
 
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "All text reactions have been deleted",
@@ -290,7 +291,7 @@ namespace TheGodfather.Modules.Reactions
                     throw new CommandFailedException($"Failed to add trigger {Formatter.Bold(trigger)}.");
             }
 
-            var logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            var logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "New text reaction added",

@@ -1,0 +1,25 @@
+{
+  "db-config": {
+    "database": "gf",
+    "hostname": "localhost",
+    "password": "P@$$w0rd",
+    "port": 5432,
+    "username": "postgres"
+  },
+  "db_sync_interval": 600,
+  "prefix": "!",
+  "feed_check_interval": 300,
+  "feed_check_start_delay": 30,
+  "key-giphy": " jxbDiPqJqI0xXiAPxFVmSH42J8BVrFxG",
+  "key-goodreads": "uPICdKcCdxqnEjuNGZAFA",
+  "key-imgur": "b5b11e1b2fb6894",
+  "log-level": 4,
+  "log-path": "log.txt",
+  "log-to-file": false,
+  "key-omdb": "2362a0bc",
+  "shard-count": 1,
+  "key-steam": "89A629478FC561669A453ADD3077632A",
+  "key-weather": "d96618c51a67e94d062c9d35584d6bb7",
+  "key-youtube": "AIzaSyBf6BVyRtUojqccDjihUBViDybRd84H0KM",
+  "token": "NDk2NzY2NjY4NzMxNTgwNDE3.DpVaFw.1bHFXfT8nVDBXGhvNztIMT6DDls"
+}

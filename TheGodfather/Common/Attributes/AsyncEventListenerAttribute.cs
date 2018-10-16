@@ -4,6 +4,8 @@ using DSharpPlus;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using TheGodfather.DiscordEntities;
+
 #endregion
 
 namespace TheGodfather.Common.Attributes
@@ -20,7 +22,8 @@ namespace TheGodfather.Common.Attributes
         }
 
 
-        public void Register(TheGodfatherShard shard, DiscordClient client, MethodInfo mi)
+        
+        public void Register(TheGodfatherShard shard, IDiscordClient client, MethodInfo mi)
         {
             Task OnEventWithArgs(object e)
             {
