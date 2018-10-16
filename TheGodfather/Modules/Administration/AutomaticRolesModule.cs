@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using TheGodfather.Common.Attributes;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Administration.Extensions;
@@ -63,7 +64,7 @@ namespace TheGodfather.Modules.Administration
             foreach (DiscordRole role in roles)
                 await this.Database.AddAutomaticRoleAsync(ctx.Guild.Id, role.Id);
 
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "Automatic roles change occured",
@@ -95,7 +96,7 @@ namespace TheGodfather.Modules.Administration
             foreach (DiscordRole role in roles)
                 await this.Database.RemoveAutomaticRoleAsync(ctx.Guild.Id, role.Id);
 
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "Automatic roles change occured",
@@ -124,7 +125,7 @@ namespace TheGodfather.Modules.Administration
 
             await this.Database.RemoveAllAutomaticRolesForGuildAsync(ctx.Guild.Id);
 
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "All automatic roles have been deleted",

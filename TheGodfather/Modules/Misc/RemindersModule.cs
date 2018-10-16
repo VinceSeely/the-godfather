@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common;
 using TheGodfather.Common.Attributes;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Owner.Extensions;
@@ -193,7 +194,7 @@ namespace TheGodfather.Modules.Misc
             DateTimeOffset when = DateTimeOffset.Now + timespan;
 
             var task = new SendMessageTaskInfo(channel?.Id ?? 0, ctx.User.Id, message, when, repeat, timespan);
-            await SavedTaskExecutor.ScheduleAsync(this.Shared, this.Database, ctx.Client, task);
+            await SavedTaskExecutor.ScheduleAsync(this.Shared, this.Database, (DiscordClientImpl)ctx.Client, task);
 
             if (repeat) 
                 await this.InformAsync(ctx, StaticDiscordEmoji.AlarmClock, $"I will repeatedly remind {channel?.Mention ?? "you"} every {Formatter.Bold(timespan.Humanize(5))} to:\n\n{message}", important: false);

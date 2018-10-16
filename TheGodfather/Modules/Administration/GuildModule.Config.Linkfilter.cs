@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common;
 using TheGodfather.Common.Attributes;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Modules.Administration.Common;
 using TheGodfather.Services;
 #endregion
@@ -196,7 +197,7 @@ namespace TheGodfather.Modules.Administration
                 #region HELPER_FUNCTIONS
                 protected Task LogConfigChangeAsync(CommandContext ctx, string module, bool value)
                 {
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null) {
                         var emb = new DiscordEmbedBuilder() {
                             Title = "Guild config changed",

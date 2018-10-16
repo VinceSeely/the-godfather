@@ -129,7 +129,7 @@ namespace TheGodfather.EventListeners
                 .FirstOrDefault();
             if (ereaction != null) {
                 try {
-                    var emoji = DiscordEmoji.FromName(shard.Client, ereaction.Response);
+                    var emoji = DiscordEmoji.FromName(shard.Client.Client, ereaction.Response);
                     await e.Message.CreateReactionAsync(emoji);
                 } catch (ArgumentException) {
                     await shard.DatabaseService.RemoveAllTriggersForEmojiReactionAsync(e.Guild.Id, ereaction.Response);

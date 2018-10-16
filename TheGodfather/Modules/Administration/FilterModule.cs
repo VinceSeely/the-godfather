@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 using TheGodfather.Common.Attributes;
 using TheGodfather.Common.Collections;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Administration.Common;
@@ -109,7 +110,7 @@ namespace TheGodfather.Modules.Administration
                     eb.AppendLine($"Error: Failed to add filter {Formatter.InlineCode(regexString)}.");
             }
             
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "Filter addition occured",
@@ -158,7 +159,7 @@ namespace TheGodfather.Modules.Administration
                 }
             }
             
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "Filter deletion occured",
@@ -201,7 +202,7 @@ namespace TheGodfather.Modules.Administration
                 }
             }
             
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "Filter deletion occured",
@@ -245,7 +246,7 @@ namespace TheGodfather.Modules.Administration
                 throw new CommandFailedException("Failed to delete filters from the database.");
             }
 
-            DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+            DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
             if (logchn != null) {
                 var emb = new DiscordEmbedBuilder() {
                     Title = "All filters have been deleted",

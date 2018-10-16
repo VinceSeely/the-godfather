@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using TheGodfather.Common;
 using TheGodfather.Common.Attributes;
 using TheGodfather.Common.Converters;
+using TheGodfather.DiscordEntities;
 using TheGodfather.Exceptions;
 using TheGodfather.Extensions;
 using TheGodfather.Modules.Administration.Common;
@@ -80,7 +81,7 @@ namespace TheGodfather.Modules.Administration
                 if (await channel.WaitForBoolResponseAsync(ctx, "We are almost done! Please review the settings above and say whether you want me to apply them.")) {
                     await this.ApplySettingsAsync(ctx.Guild.Id, gcfg, muteRole, msgSettings, antifloodSettings, antiInstantLeaveSettings);
 
-                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                    DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                     if (logchn != null)
                         await this.PrintGuildConfigAsync(ctx.Guild, logchn, changed: true);
 
@@ -103,7 +104,7 @@ namespace TheGodfather.Modules.Administration
 
                 await this.Database.UpdateGuildSettingsAsync(ctx.Guild.Id, gcfg);
 
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Guild config changed",
@@ -140,7 +141,7 @@ namespace TheGodfather.Modules.Administration
 
                 await this.Database.UpdateGuildSettingsAsync(ctx.Guild.Id, gcfg);
 
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Guild config changed",
@@ -199,7 +200,7 @@ namespace TheGodfather.Modules.Administration
                 else
                     await this.Database.RemoveWelcomeChannelAsync(ctx.Guild.Id);
 
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Guild config changed",
@@ -233,7 +234,7 @@ namespace TheGodfather.Modules.Administration
 
                 await this.Database.SetWelcomeMessageAsync(ctx.Guild.Id, message);
 
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Guild config changed",
@@ -286,7 +287,7 @@ namespace TheGodfather.Modules.Administration
                 else
                     await this.Database.RemoveLeaveChannelAsync(ctx.Guild.Id);
 
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Guild config changed",
@@ -320,7 +321,7 @@ namespace TheGodfather.Modules.Administration
 
                 await this.Database.SetLeaveMessageAsync(ctx.Guild.Id, message);
 
-                DiscordChannel logchn = this.Shared.GetLogChannelForGuild(ctx.Client, ctx.Guild);
+                DiscordChannel logchn = this.Shared.GetLogChannelForGuild((DiscordClientImpl)ctx.Client, ctx.Guild);
                 if (logchn != null) {
                     var emb = new DiscordEmbedBuilder() {
                         Title = "Guild config changed",
