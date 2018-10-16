@@ -1,0 +1,3 @@
+[submodule "TheGodfather/Modules/R6Siege/RainbowSixSiege-CSharp-API"]
+	path = TheGodfather/Modules/R6Siege/RainbowSixSiege-CSharp-API
+	url = https://github.com/methvind/RainbowSixSiege-CSharp-API.git
