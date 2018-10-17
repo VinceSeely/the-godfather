@@ -135,8 +135,8 @@ namespace TheGodfather.EventListeners
                     await shard.DatabaseService.RemoveAllTriggersForEmojiReactionAsync(e.Guild.Id, ereaction.Response);
                 }
             }
-        }
 
+        }
         [AsyncEventListener(DiscordEventType.MessageCreated)]
         public static async Task MessageTextReactionEventHandlerAsync(TheGodfatherShard shard, MessageCreateEventArgs e)
         {

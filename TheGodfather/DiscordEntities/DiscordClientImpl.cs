@@ -68,6 +68,10 @@ namespace TheGodfather.DiscordEntities
         CommandsNextExtension UseCommandsNext(CommandsNextConfiguration commandsNextConfiguration);
         InteractivityExtension UseInteractivity(InteractivityConfiguration interactivityConfiguration);
         VoiceNextExtension UseVoiceNext();
+        Task<DiscordChannel> GetChannelAsync(ulong smtiChannelId);
+        Task<DiscordUser> GetUserAsync(ulong smtiInitiatorId);
+        Task<DiscordChannel> CreateDmChannelAsync(ulong infoInitiatorId);
+        Task<DiscordGuild> GetGuildAsync(ulong infoGuildId);
     }
 
     public class DiscordClientImpl : IDiscordClient
@@ -200,6 +204,26 @@ namespace TheGodfather.DiscordEntities
         public VoiceNextExtension UseVoiceNext()
         {
             return _Client.UseVoiceNext();
+        }
+
+        public Task<DiscordChannel> GetChannelAsync(ulong smtiChannelId)
+        {
+            return _Client.GetChannelAsync(smtiChannelId);
+        }
+
+        public Task<DiscordUser> GetUserAsync(ulong smtiInitiatorId)
+        {
+            return _Client.GetUserAsync(smtiInitiatorId);
+        }
+
+        public Task<DiscordChannel> CreateDmChannelAsync(ulong infoInitiatorId)
+        {
+            return CreateDmChannelAsync(infoInitiatorId);
+        }
+
+        public Task<DiscordGuild> GetGuildAsync(ulong infoGuildId)
+        {
+            return _Client.GetGuildAsync(infoGuildId);
         }
 
         private DiscordClientImpl(DiscordClient client)
