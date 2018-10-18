@@ -31,7 +31,6 @@ namespace TheGodfather.Modules.R6Siege
 
     public class R6SiegeStatsModule : TheGodfatherModule
     {
-
         private R6SiegeAPI.API api;
 
         public R6SiegeStatsModule(SharedData shared, DBService db)
@@ -41,18 +40,6 @@ namespace TheGodfather.Modules.R6Siege
             this.ModuleColor = DiscordColor.HotPink;
         }
 
-        [GroupCommand]
-        public Task ExecuteGroupAsync(CommandContext ctx)
-        {
-            return ctx.RespondAsync(embed: new DiscordEmbedBuilder()
-            {
-                Title = "Title here:",
-                Description = "Description here:",
-                Color = this.ModuleColor,
-            }.WithFooter("Footer message here:").Build());
-        }
-
-
         [Command("all")]
         [Description("This command has no functionality, it is merely a temporary prototype.")]
         [Aliases("gen", "general")]
@@ -60,11 +47,17 @@ namespace TheGodfather.Modules.R6Siege
                         "!r6s gen playername")]
         public async Task GeneralStats(CommandContext ctx, [Description("Player to get stats for.")] string playerName)
         {
-            R6SiegeAPI.Models.Player player = await api.GetPlayer(playerName, R6SiegeAPI.Enums.Platform.UPLAY, R6SiegeAPI.Enums.UserSearchType.Name);
-            
+            try
+            {
+                R6SiegeAPI.Models.Player player = await api.GetPlayer(playerName, R6SiegeAPI.Enums.Platform.UPLAY, R6SiegeAPI.Enums.UserSearchType.Name);
+                R6SiegeAPI.Models.General genStats = await player.GetGeneral();
 
-
-
+                await ctx.RespondAsync(embed: R6SiegeStatsModule.GeneralStatsToDiscordEmbed(genStats.Kills, genStats.Deaths, genStats.KillAssists, genStats.MatchWon, genStats.MatchLost, genStats.MatchPlayed, playerName, player.IconUrl, genStats.BarricadesDeployed, genStats.ReinforcementsDeployed, genStats.DistanceTravelled));
+            }
+            catch 
+            {
+                throw new CommandFailedException($"Player {Formatter.InlineCode(playerName)} does not exist accoring to Ubisoft.");
+            }
         }
 
         [Command("ranked")]
@@ -81,7 +74,7 @@ namespace TheGodfather.Modules.R6Siege
                 if (seasonID != -1)
                 {
                     R6SiegeAPI.Models.Rank rank = await player.GetRank(R6SiegeAPI.Enums.RankedRegion.NA, seasonID);
-                    await ctx.RespondAsync(embed: R6SiegeStatsModule.StatsToDiscordEmbed(rank.MMR, rank.MaxMMR, rank.Wins, rank.Losses, rank.Abandons, rank.RankName, playerName, seasonName, rank.GetIconUrl));
+                    await ctx.RespondAsync(embed: R6SiegeStatsModule.RankedStatsToDiscordEmbed(rank.MMR, rank.MaxMMR, rank.Wins, rank.Losses, rank.Abandons, rank.RankName, playerName, seasonName, rank.GetIconUrl));
                 }
                 throw new CommandFailedException($"{Formatter.InlineCode(seasonName)} is not a valid season or we don't currently support it. Try {Formatter.InlineCode("parabellum")}, {Formatter.InlineCode("chimera")}, {Formatter.InlineCode("whitenoise")}, or {Formatter.InlineCode("bloodorchid")}.");
             }
@@ -93,27 +86,40 @@ namespace TheGodfather.Modules.R6Siege
                 }
                 throw new CommandFailedException($"Player {Formatter.InlineCode(playerName)} does not exist accoring to Ubisoft.");
             }
-
         }
 
-
-
-        public static DiscordEmbed StatsToDiscordEmbed(float mmr, float maxMmr, int wins, int losses, int abandons, string rankName, string userName, string seasonName, string rankURL)
+        public static DiscordEmbed GeneralStatsToDiscordEmbed(int kills, int deaths, int assists, int matchWon, int matchLost, int matchPlayed, string userName, string userImgURL, int barricades, int reinforcements, int distance)
         {
             var emb = new DiscordEmbedBuilder()
             {
-                Title = $"{StaticDiscordEmoji.Trophy} " + userName + $"'s Stats {StaticDiscordEmoji.Trophy}",
+                Title = $"{StaticDiscordEmoji.Trophy} " + userName + $"{StaticDiscordEmoji.Trophy}",
+                Color = DiscordColor.HotPink,
+                ThumbnailUrl = userImgURL
+            };
+
+            emb.AddField("Life Stats", $"Kills: {Formatter.InlineCode(kills.ToString())} Deaths: {Formatter.InlineCode(deaths.ToString())} Assists: {Formatter.InlineCode(assists.ToString())}");
+            emb.AddField("Match Stats", $"Played: {Formatter.InlineCode(matchPlayed.ToString())} Wins: {Formatter.InlineCode(matchWon.ToString())} Losses: {Formatter.InlineCode(matchLost.ToString())}");
+            emb.AddField("Other Stats", $"Barricades Deployed: {Formatter.InlineCode(barricades.ToString())} Reinforcements Deployed: {Formatter.InlineCode(reinforcements.ToString())} Distance Travelled: {Formatter.InlineCode(distance.ToString())}");
+
+            return emb.Build();
+        }
+
+        public static DiscordEmbed RankedStatsToDiscordEmbed(float mmr, float maxMmr, int wins, int losses, int abandons, string rankName, string userName, string seasonName, string rankURL)
+        {
+            var emb = new DiscordEmbedBuilder()
+            {
+                Title = $"{StaticDiscordEmoji.Trophy} " + userName + $"{StaticDiscordEmoji.Trophy}",
                 Description = "Rank: " + rankName,
                 Color = DiscordColor.HotPink,
                 ThumbnailUrl = rankURL
             };
 
-            emb.AddField("MMR", $"Current: {Formatter.InlineCode(mmr.ToString("N2"))} Max: {Formatter.InlineCode(maxMmr.ToString("N2"))}");
+            emb.AddField("MMR Stats", $"Current: {Formatter.InlineCode(mmr.ToString("N2"))} Max: {Formatter.InlineCode(maxMmr.ToString("N2"))}");
             emb.AddField("Game Stats", $"Wins: {Formatter.InlineCode(wins.ToString())} Losses: {Formatter.InlineCode(losses.ToString())} Abandons: {Formatter.InlineCode(abandons.ToString())}");
             return emb.Build();
         }
 
-        private int GetSeasonID(string seasonName)
+        private static int GetSeasonID(string seasonName)
         {
             switch (seasonName.ToLower())
             {
@@ -129,8 +135,5 @@ namespace TheGodfather.Modules.R6Siege
                     return -1;
             }
         }
-
-
-
     }
 }
