@@ -34,6 +34,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Modules\R6Siege\Api\**" />
+    <Compile Remove="Modules\R6Siege\Exception\**" />
+    <Compile Remove="Modules\R6Siege\Http\**" />
+    <Compile Remove="Modules\R6Siege\Routing\**" />
+    <Compile Remove="Modules\R6Siege\Security\**" />
+    <EmbeddedResource Remove="Modules\R6Siege\Api\**" />
+    <EmbeddedResource Remove="Modules\R6Siege\Exception\**" />
+    <EmbeddedResource Remove="Modules\R6Siege\Http\**" />
+    <EmbeddedResource Remove="Modules\R6Siege\Routing\**" />
+    <EmbeddedResource Remove="Modules\R6Siege\Security\**" />
+    <None Remove="Modules\R6Siege\Api\**" />
+    <None Remove="Modules\R6Siege\Exception\**" />
+    <None Remove="Modules\R6Siege\Http\**" />
+    <None Remove="Modules\R6Siege\Routing\**" />
+    <None Remove="Modules\R6Siege\Security\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DSharpPlus" Version="4.0.0-nightly-00532" />
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.0.0-nightly-00532" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="4.0.0-nightly-00532" />
@@ -71,14 +89,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Modules\R6Siege\Api\" />
-    <Folder Include="Modules\R6Siege\Exception\" />
-    <Folder Include="Modules\R6Siege\Http\" />
-    <Folder Include="Modules\R6Siege\Security\" />
-    <Folder Include="Modules\R6Siege\Routing\" />
   </ItemGroup>
 
 </Project>

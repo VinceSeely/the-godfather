@@ -10,19 +10,34 @@ namespace TheGodfatherTests.Modules.R6Siege
     [TestFixture]
     public class R6SiegeStatsModuleTest
     {
-        [SetUp]
-        public void temp1()
-        {
-
-        }
-        
         [Test]
-        public void temp()
+        public void GeneralStatsTest()
         {
 
         }
 
+        [Test]
+        public void RankedStatsTest()
+        {
 
+        }
 
+        [Test]
+        public void GeneralStatsToDiscordEmbedTest()
+        {
+
+        }
+
+        [Test]
+        public void RankedStatsToDiscordEmbedTest()
+        {
+
+        }
+
+        [Test]
+        public void GetSeasonIDTest()
+        {
+
+        }
     }
 }
