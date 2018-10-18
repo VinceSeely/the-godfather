@@ -27,7 +27,6 @@ namespace TheGodfather.Modules.R6Siege
     [Group("r6stats"), Module(ModuleType.R6Siege), NotBlocked]
     [Description("View R6S player statistics.")]
     [Aliases("r6", "6stats")]
-    [Cooldown(1, 1, CooldownBucketType.Channel)] // NumUses, CooldownTime, CooldownType
 
     public class R6SiegeStatsModule : TheGodfatherModule
     {
@@ -74,7 +73,7 @@ namespace TheGodfather.Modules.R6Siege
                 if (seasonID != -1)
                 {
                     R6SiegeAPI.Models.Rank rank = await player.GetRank(R6SiegeAPI.Enums.RankedRegion.NA, seasonID);
-                    await ctx.RespondAsync(embed: R6SiegeStatsModule.RankedStatsToDiscordEmbed(rank.MMR, rank.MaxMMR, rank.Wins, rank.Losses, rank.Abandons, rank.RankName, playerName, seasonName, rank.GetIconUrl));
+                    await ctx.RespondAsync(embed: R6SiegeStatsModule.RankedStatsToDiscordEmbed(rank.MMR, rank.MaxMMR, rank.Wins, rank.Losses, rank.Abandons, rank.RankName, playerName, rank.Season.Name, rank.GetIconUrl));
                 }
                 throw new CommandFailedException($"{Formatter.InlineCode(seasonName)} is not a valid season or we don't currently support it. Try {Formatter.InlineCode("parabellum")}, {Formatter.InlineCode("chimera")}, {Formatter.InlineCode("whitenoise")}, or {Formatter.InlineCode("bloodorchid")}.");
             }
