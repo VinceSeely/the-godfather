@@ -88,7 +88,7 @@ namespace TheGodfather.Modules.R6Siege
             }
         }
 
-        public static DiscordEmbed GeneralStatsToDiscordEmbed(int kills, int deaths, int assists, int matchWon, int matchLost, int matchPlayed, string userName, string userImgURL, int barricades, int reinforcements, int distance)
+        private static DiscordEmbed GeneralStatsToDiscordEmbed(int kills, int deaths, int assists, int matchWon, int matchLost, int matchPlayed, string userName, string userImgURL, int barricades, int reinforcements, int distance)
         {
             var emb = new DiscordEmbedBuilder()
             {
@@ -104,12 +104,12 @@ namespace TheGodfather.Modules.R6Siege
             return emb.Build();
         }
 
-        public static DiscordEmbed RankedStatsToDiscordEmbed(float mmr, float maxMmr, int wins, int losses, int abandons, string rankName, string userName, string seasonName, string rankURL)
+        private static DiscordEmbed RankedStatsToDiscordEmbed(float mmr, float maxMmr, int wins, int losses, int abandons, string rankName, string userName, string seasonName, string rankURL)
         {
             var emb = new DiscordEmbedBuilder()
             {
                 Title = $"{StaticDiscordEmoji.Trophy} " + userName + $"{StaticDiscordEmoji.Trophy}",
-                Description = "Rank: " + rankName,
+                Description = seasonName + " stats",
                 Color = DiscordColor.HotPink,
                 ThumbnailUrl = rankURL
             };
