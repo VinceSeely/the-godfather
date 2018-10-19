@@ -70,12 +70,15 @@ namespace TheGodfather.Modules.R6Siege
             {
                 R6SiegeAPI.Models.Player player = await api.GetPlayer(playerName, R6SiegeAPI.Enums.Platform.UPLAY, R6SiegeAPI.Enums.UserSearchType.Name);
                 int seasonID = GetSeasonID(seasonName);
-                if (seasonID != -1)
+                if (seasonID == -1)
+                {
+                    throw new CommandFailedException($"{Formatter.InlineCode(seasonName)} is not a valid season or we don't currently support it. Try {Formatter.InlineCode("parabellum")}, {Formatter.InlineCode("chimera")}, {Formatter.InlineCode("whitenoise")}, or {Formatter.InlineCode("bloodorchid")}.");
+                }
+                else
                 {
                     R6SiegeAPI.Models.Rank rank = await player.GetRank(R6SiegeAPI.Enums.RankedRegion.NA, seasonID);
                     await ctx.RespondAsync(embed: R6SiegeStatsModule.RankedStatsToDiscordEmbed(rank.MMR, rank.MaxMMR, rank.Wins, rank.Losses, rank.Abandons, rank.RankName, playerName, rank.Season.Name, rank.GetIconUrl));
                 }
-                throw new CommandFailedException($"{Formatter.InlineCode(seasonName)} is not a valid season or we don't currently support it. Try {Formatter.InlineCode("parabellum")}, {Formatter.InlineCode("chimera")}, {Formatter.InlineCode("whitenoise")}, or {Formatter.InlineCode("bloodorchid")}.");
             }
             catch(Exception e)
             {
