@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 using DSharpPlus;
 using TheGodfather.Modules.R6Siege;
+using DSharpPlus.Entities;
+using DSharpPlus.CommandsNext;
 
 namespace TheGodfatherTests.Modules.R6Siege
 {
@@ -17,7 +19,7 @@ namespace TheGodfatherTests.Modules.R6Siege
         private static R6SiegeStatsModule testObject = new R6SiegeStatsModule();
 
         
-        [TestMethod]
+        [Test]
         public async Task GeneralStatsTest()
         {
             // Set up test object
@@ -27,7 +29,7 @@ namespace TheGodfatherTests.Modules.R6Siege
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public async Task RankedStatsTest()
         {
             // Set up test object
@@ -37,7 +39,7 @@ namespace TheGodfatherTests.Modules.R6Siege
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GeneralStatsToDiscordEmbedTest()
         {
             // Set up test object
@@ -48,7 +50,7 @@ namespace TheGodfatherTests.Modules.R6Siege
             Assert.AreEqual(DiscordColor.HotPink, testObject.Color);
         }
 
-        [TestMethod]
+        [Test]
         public void RankedStatsToDiscordEmbedTest()
         {
             // Set up test object
@@ -59,7 +61,7 @@ namespace TheGodfatherTests.Modules.R6Siege
             Assert.AreEqual(DiscordColor.HotPink, testObject.Color);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSeasonIDTest()
         {
             // Check valid string
